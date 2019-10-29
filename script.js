@@ -1,46 +1,40 @@
-let dice = document.getElementById("dice");
-const button = document.getElementById("roll");
-let score = document.getElementById("score").innerHTML;
-let current = document.getElementById("current").innerHTML;
+const roll = document.getElementById("roll");
 const hold = document.getElementById("holdbutton");
-
-button.addEventListener("click", ()=>{
-    let rannum = Math.floor(Math.random()*6)+1;
+let current = document.getElementById("current").innerHTML;
+let player = score1
+let rannum = 0
+let test = function (num){
     if (rannum == 1){
-        document.getElementById("dice").src = "img/dice1.png"
-        // alert("You Lose")
+        document.getElementById(`dice${num}`).src = "img/dice1.png"
         current = 0;
         document.getElementById("current").innerHTML = current;
-
     }
-    else if (rannum == 2){
-        document.getElementById("dice").src = "img/dice2.png";
-        current = parseInt(current) + 2;
-        document.getElementById("current").innerHTML = current;
+    else{
+    document.getElementById(`dice${num}`).src = `img/dice${rannum}.png`;
+    current = parseInt(current) + rannum;
+    document.getElementById("current").innerHTML = current;
     }
-    else if (rannum == 3){
-        document.getElementById("dice").src = "img/dice3.png";
-        current = parseInt(current) + 3;
-        document.getElementById("current").innerHTML = current;
+}
+hold.addEventListener("click", ()=>{
+    if (player == score1){
+        thing(score2,1)    
     }
-    else if (rannum == 4){
-        document.getElementById("dice").src = "img/dice4.png";
-        current = parseInt(current) + 4;
-        document.getElementById("current").innerHTML = current;
-    }
-    else if (rannum == 5){
-        document.getElementById("dice").src = "img/dice5.png";
-        current = parseInt(current) + 5;
-        document.getElementById("current").innerHTML = current;
-    }
-    else if (rannum == 6){
-        document.getElementById("dice").src = "img/dice6.png";
-        current = parseInt(current) + 6;
-        document.getElementById("current").innerHTML = current;
+    else {
+        thing(score1,2)
     }
 })
-
-hold.addEventListener("click", ()=>{
-    document.getElementById("score").innerHTML = current;
-
+let thing = function(score,a){
+    document.getElementById(`score${a}`).innerHTML = current;
+    player = score;
+    current = 0;
+    document.getElementById("current").innerHTML = current;
+}
+roll.addEventListener("click", ()=>{
+    rannum = Math.floor(Math.random()*6)+1;
+    if (player == score1){
+        test(1)
+    }
+    else if (player == score2){
+        test(2)
+    }
 })
